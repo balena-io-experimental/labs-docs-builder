@@ -19,14 +19,20 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    # Check the docs folder exists
+    - run: echo "DOCS_FOLDER_EXISTS=$(test -d "docs" && echo 0)" >> $GITHUB_ENV
+      shell: bash
+
     # Checkout docs builder
     - uses: actions/checkout@v3
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       with:
         repository: ${{ inputs.docs_builder_repo }}
         path: ${{ inputs.docs_builder_folder }}
 
     # Setup Node
     - uses: actions/setup-node@v3
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       with:
         node-version: "18"
         cache: 'npm'
@@ -37,17 +43,20 @@ runs:
         cp -r -f docs/static/. ${{ inputs.docs_builder_folder }}/static/
         rm -r -f ${{ inputs.docs_builder_folder }}/docs
         mv docs ${{ inputs.docs_builder_folder }}/docs
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
     # Configure the GitHub account for pushing as a generic user
     - run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
     # Setup secure environment variables passed from user
     - run: |
         echo "GIT_PASS=$(echo ${{ inputs.git_pass }})" >> $GITHUB_ENV
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
     # Build and deploy
@@ -57,4 +66,5 @@ runs:
       env:
         GIT_USER: ${{ github.actor }} 
         REPO_NAME: ${{ github.event.repository.name }}
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
