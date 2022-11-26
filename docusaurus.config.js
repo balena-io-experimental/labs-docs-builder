@@ -10,12 +10,13 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 const baseUrl = `/${process.env.REPO_NAME}/`;
 const branch = process.env.GITHUB_BASE_REF || "main";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
+const path = process.env.DOCS_PATH || "docs";
 const repoName = process.env.REPO_NAME;
 
 const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${branch}`;
 const siteUrl = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`;
 const ymlConfig = yaml.load(
-  fs.readFileSync("docs/docusaurus-config.yml", "utf8")
+  fs.readFileSync(path + "/docusaurus-config.yml", "utf8")
 );
 
 /** @type {import('@docusaurus/types').Config} */
@@ -64,6 +65,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: editUrl,
           breadcrumbs: false,
+          path: path,
         },
         blog: false,
         theme: {
