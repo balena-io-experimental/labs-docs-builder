@@ -1,23 +1,40 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-const yaml = require("js-yaml");
-const fs = require("fs");
 
+// Required imports for handling variables
+const fs = require("fs");
+const yaml = require("js-yaml");
+
+// Docusaurus themes
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 
-// Import external variables
+// Configure required variables
 const baseUrl = `/${process.env.REPO_NAME}/`;
 const branch = process.env.GITHUB_BASE_REF || "main";
+let favicon = "favicon.ico";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
+let logo = "primary-header-logo.png";
 const path = process.env.DOCS_PATH || "docs";
 const repoName = process.env.REPO_NAME;
-
-const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${branch}`;
-const siteUrl = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`;
 const ymlConfig = yaml.load(
   fs.readFileSync(path + "/docusaurus-config.yml", "utf8")
 );
+
+// Configure URLs
+const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${branch}`;
+const siteUrl = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`;
+
+// If files are missing, replace with defaults
+if (!fs.existsSync("static/" + favicon)) {
+  favicon =
+    "https://github.com/balena-labs-projects/.github/raw/main/favicon.ico";
+}
+
+if (!fs.existsSync("static/" + logo)) {
+  logo =
+    "https://github.com/balena-labs-projects/.github/raw/main/labs-logo.png";
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -26,7 +43,7 @@ const config = {
   baseUrl: baseUrl,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: favicon,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -82,7 +99,7 @@ const config = {
         title: ymlConfig.project.name,
         logo: {
           alt: ymlConfig.project.name,
-          src: "img/primary-header-logo.png",
+          src: logo,
         },
         hideOnScroll: true,
       },
