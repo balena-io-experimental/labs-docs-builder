@@ -40,6 +40,7 @@ runs:
 
     # Move the docs and config to the doc builder
     - run: |
+        mkdir -p docs/static/
         cp -r -f docs/static/. ${{ inputs.docs_builder_folder }}/static/
         rm -r -f ${{ inputs.docs_builder_folder }}/docs
         mv docs ${{ inputs.docs_builder_folder }}/docs

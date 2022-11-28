@@ -4,7 +4,7 @@ An experiment using Docusaurus to build docs based on a default template and pub
 
 Add the `docs` folder and the `build.yml` GitHub workflow from this repository to your own project repo to use the builder.
 
-Docs will be built and deployed to a branch called `gh_pages`. From there, the docs can be published to GitHub pages by selecting the `Deploy from a branch` mode in `Settings -> Pages`, choosing the `gh_pages` branch and `/` as the source folder.
+Docs will be built and deployed to a branch called `gh-pages`. From there, the docs can be published to GitHub pages by selecting the `Deploy from a branch` mode in `Settings -> Pages`, choosing the `gh-pages` branch and `/` as the source folder.
 
 ## Start Editing
 
