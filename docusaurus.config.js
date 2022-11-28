@@ -10,7 +10,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 
 // Configure required variables
-const baseUrl = `/${process.env.REPO_NAME}/`;
+const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
 const branch = process.env.GITHUB_BASE_REF || "main";
 let favicon = "favicon.ico";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
@@ -107,20 +107,53 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Community",
+            title: "Balena",
             items: [
               {
-                label: "Forums - update link",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                label: "What is Balena?",
+                href: "https://www.balena.io/what-is-balena",
               },
               {
-                label: "Blog - update link",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "Pricing",
+                href: "https://www.balena.io/pricing",
+              },
+            ],
+          },
+          {
+            title: "Products",
+            items: [
+              {
+                label: "Balena Labs",
+                href: "https://github.com/balena-labs-projects",
+              },
+              {
+                label: "Balena Cloud",
+                href: "https://www.balena.io/cloud",
+              },
+              {
+                label: "Balena Etcher",
+                href: "https://www.balena.io/etcher",
+              },
+            ],
+          },
+          {
+            title: "Resources",
+            items: [
+              {
+                label: "Balena Docs",
+                href: "https://www.balena.io/docs",
+              },
+              {
+                label: "Blog",
+                href: "https://www.balena.io/blog",
+              },
+              {
+                label: "Forums",
+                href: "https://forums.balena.io",
               },
             ],
           },
         ],
-        copyright: `MIT License applied to all content (${new Date().getFullYear()})`,
       },
       metadata: [{ name: "keywords", content: "balena, balenaLabs" }],
       // This would become <meta name="keywords" content="cooking, blog"> in the generated HTML
