@@ -11,7 +11,7 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 
 // Configure required variables
 const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
-const branch = process.env.GITHUB_BASE_REF || "main";
+const branch = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH;
 let favicon = "favicon.ico";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
 let logo = "primary-header-logo.png";
@@ -104,58 +104,11 @@ const config = {
         hideOnScroll: true,
       },
       footer: {
+        copyright: ymlConfig.project.name,
         style: "dark",
-        links: [
-          {
-            title: "Balena",
-            items: [
-              {
-                label: "What is Balena?",
-                href: "https://www.balena.io/what-is-balena",
-              },
-              {
-                label: "Pricing",
-                href: "https://www.balena.io/pricing",
-              },
-            ],
-          },
-          {
-            title: "Products",
-            items: [
-              {
-                label: "Balena Labs",
-                href: "https://github.com/balena-labs-projects",
-              },
-              {
-                label: "Balena Cloud",
-                href: "https://www.balena.io/cloud",
-              },
-              {
-                label: "Balena Etcher",
-                href: "https://www.balena.io/etcher",
-              },
-            ],
-          },
-          {
-            title: "Resources",
-            items: [
-              {
-                label: "Balena Docs",
-                href: "https://www.balena.io/docs",
-              },
-              {
-                label: "Blog",
-                href: "https://www.balena.io/blog",
-              },
-              {
-                label: "Forums",
-                href: "https://forums.balena.io",
-              },
-            ],
-          },
-        ],
+        links: [],
       },
-      metadata: [{ name: "keywords", content: "balena, balenaLabs" }],
+      metadata: [{ name: "keywords", content: ymlConfig.project.name }],
       // This would become <meta name="keywords" content="cooking, blog"> in the generated HTML
       prism: {
         theme: lightCodeTheme,

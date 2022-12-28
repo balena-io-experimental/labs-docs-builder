@@ -60,6 +60,13 @@ runs:
       if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
+    # Set required environment variables
+    - run: |
+        BASE_BRANCH=${GITHUB_REF#refs/heads/}
+        echo "BASE_BRANCH=$BASE_BRANCH" >> $GITHUB_ENV
+      if: ${{ env.DOCS_FOLDER_EXISTS }}
+      shell: bash
+
     # Build and deploy
     - run: |
         npm ci --prefix ${{ inputs.docs_builder_folder }}
