@@ -12,28 +12,56 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 // Configure required variables
 const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
 const branch = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH;
-let favicon = "favicon.ico";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
-let logo = "primary-header-logo.png";
 const path = process.env.DOCS_PATH || "docs";
 const repoName = process.env.REPO_NAME;
 const ymlConfig = yaml.load(
   fs.readFileSync(path + "/docusaurus-config.yml", "utf8")
 );
 
+// Check if balena.yml exists, and read the yml file
+let balenaYml;
+let balenaYmlFile;
+
+try {
+  balenaYmlFile = fs.readFileSync(path + "/../balena.yml");
+  balenaYml = yaml.load(balenaYmlFile, "utf8");
+} catch (err) {
+  console.log("balena.yml file not found. Continuing without it.");
+}
+
 // Configure URLs
 const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${branch}`;
 const siteUrl = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`;
 
-// If files are missing, replace with defaults
-if (!fs.existsSync("static/" + favicon)) {
+// If theme files are missing, replace with defaults
+let favicon;
+let logo;
+let logoPath;
+
+const defaultIco = "favicon.ico";
+if (fs.existsSync("static/" + defaultIco)) {
+  favicon = defaultIco;
+} else if (githubRepoOwner == "balena-labs-projects") {
   favicon =
     "https://github.com/balena-labs-projects/.github/raw/main/favicon.ico";
 }
 
-if (!fs.existsSync("static/" + logo)) {
-  logo =
+const defaultHeader = "primary-header-logo.png";
+if (fs.existsSync("static/" + defaultHeader)) {
+  logoPath = defaultHeader;
+} else if (balenaYml?.assets?.logo?.data?.url) {
+  logoPath = balenaYml.assets.logo.data.url;
+} else if (githubRepoOwner == "balena-labs-projects") {
+  logoPath =
     "https://github.com/balena-labs-projects/.github/raw/main/labs-logo.png";
+}
+
+if (logoPath) {
+  logo = {
+    alt: ymlConfig.project.name,
+    src: logoPath,
+  };
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -97,10 +125,7 @@ const config = {
     ({
       navbar: {
         title: ymlConfig.project.name,
-        logo: {
-          alt: ymlConfig.project.name,
-          src: logo,
-        },
+        logo,
         hideOnScroll: true,
       },
       footer: {

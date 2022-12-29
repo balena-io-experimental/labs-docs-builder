@@ -1,6 +1,6 @@
 # Labs Docs Builder
 
-An experiment using Docusaurus to build docs based on a default template and publish to GitHub Pages.
+An experiment using Docusaurus to build docs based on a default template and published to GitHub Pages.
 
 Add the `docs` folder and the `build.yml` GitHub workflow from this repository to your own project repo to use the builder.
 
@@ -31,5 +31,7 @@ sidebar_position: 1
 Static assets such as images go in `docs/static` and can be referenced as `/your-asset.jpeg` in the docs.
 
 To replace the default header image include your own in `docs/static` called `primary-header-logo.png`.
+
+To add a favicon, include your own in `docs/static` called `favicon.ico`.
 
 Enjoy!

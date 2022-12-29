@@ -1,5 +1,5 @@
-name: 'Labs Docs Action'
-description: 'Generate Labs docs'
+name: 'Balena Labs Docs Action'
+description: 'Generate Docusaurus docs'
 branding:
   icon: 'code'  
   color: 'blue'
