@@ -51,7 +51,7 @@ runs:
         cp -r -f docs/static/. ${{ inputs.docs_builder_folder }}/static/
         rm -r -f ${{ inputs.docs_builder_folder }}/docs
         mv docs ${{ inputs.docs_builder_folder }}/docs
-        cp ${GITHUB_WORKSPACE}/balena.yml ${{ inputs.docs_builder_folder }} 2>/dev/null || :
+        cp balena.yml ${{ inputs.docs_builder_folder }} 2>/dev/null || :
       if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
