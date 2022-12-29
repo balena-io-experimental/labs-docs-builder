@@ -42,7 +42,10 @@ let logoPath;
 const defaultIco = "favicon.ico";
 if (fs.existsSync("static/" + defaultIco)) {
   favicon = defaultIco;
-} else if (githubRepoOwner == "balena-labs-projects") {
+} else if (
+  githubRepoOwner == "balena-labs-projects" ||
+  githubRepoOwner == "balena-labs-research"
+) {
   favicon =
     "https://github.com/balena-labs-projects/.github/raw/main/favicon.ico";
 }
@@ -52,7 +55,10 @@ if (fs.existsSync("static/" + defaultHeader)) {
   logoPath = defaultHeader;
 } else if (balenaYml?.assets?.logo?.data?.url) {
   logoPath = balenaYml.assets.logo.data.url;
-} else if (githubRepoOwner == "balena-labs-projects") {
+} else if (
+  githubRepoOwner == "balena-labs-projects" ||
+  githubRepoOwner == "balena-labs-research"
+) {
   logoPath =
     "https://github.com/balena-labs-projects/.github/raw/main/labs-logo.png";
 }
