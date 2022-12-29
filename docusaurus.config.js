@@ -13,11 +13,7 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
 const defaultBranch = process.env.DEFAULT_BRANCH;
 
-const docsPath =
-  process.env.DOCS_PATH ||
-  (process.env.GITHUB_WORKSPACE
-    ? `${process.env.GITHUB_WORKSPACE}/docs`
-    : "docs");
+const docsPath = process.env.DOCS_PATH || "docs";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
 const repoName = process.env.REPO_NAME;
 const ymlConfig = yaml.load(
@@ -118,7 +114,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: editUrl,
           breadcrumbs: false,
-          path: process.env.GITHUB_WORKSPACE ? "docs" : docsPath,
+          path: docsPath,
         },
         blog: false,
         theme: {
