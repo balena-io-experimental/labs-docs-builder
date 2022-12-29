@@ -51,13 +51,6 @@ runs:
       if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
 
-    # Set required environment variables
-    - run: |
-        BASE_BRANCH=${GITHUB_REF#refs/heads/}
-        echo "BASE_BRANCH=$BASE_BRANCH" >> $GITHUB_ENV
-      if: ${{ env.DOCS_FOLDER_EXISTS }}
-      shell: bash
-
     # Build and deploy
     - run: |
         npm ci --prefix ${{ inputs.docs_builder_folder }}
@@ -65,5 +58,6 @@ runs:
       env:
         GIT_USER: ${{ github.actor }} 
         REPO_NAME: ${{ github.event.repository.name }}
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       if: ${{ env.DOCS_FOLDER_EXISTS }}
       shell: bash
