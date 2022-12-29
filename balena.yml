@@ -13,7 +13,7 @@ assets:
   logo:
     type: blob.asset
     data:
-      url: 'https://github.com/balena-labs-projects/.github/raw/main/labs-logo.png'
+      url: 'https://github.com/balena-labs-research/.github/raw/main/logo.png'
 data:
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
