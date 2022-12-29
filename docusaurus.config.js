@@ -12,22 +12,22 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 // Configure required variables
 const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
 const branch = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH;
+const docsPath =
+  process.env.DOCS_PATH || process.env.GITHUB_WORKSPACE
+    ? `${process.env.GITHUB_WORKSPACE}/docs`
+    : "docs";
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
-const path = process.env.DOCS_PATH || "docs";
 const repoName = process.env.REPO_NAME;
 const ymlConfig = yaml.load(
-  fs.readFileSync(path + "/docusaurus-config.yml", "utf8")
+  fs.readFileSync(docsPath + "/docusaurus-config.yml", "utf8")
 );
 
 // Check if balena.yml exists, and read the yml file
 let balenaYml;
-let balenaYmlFile;
-
 try {
-  balenaYmlFile = fs.readFileSync(path + "/../balena.yml");
-  balenaYml = yaml.load(balenaYmlFile, "utf8");
+  balenaYml = yaml.load(fs.readFileSync(`${docsPath}/../balena.yml`, "utf8"));
 } catch (err) {
-  console.log("balena.yml file not found. Continuing without it.");
+  console.log("balena.yml file not found. Continuing without.");
 }
 
 // Configure URLs
@@ -116,7 +116,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: editUrl,
           breadcrumbs: false,
-          path: path,
+          path: docsPath,
         },
         blog: false,
         theme: {

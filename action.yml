@@ -38,15 +38,6 @@ runs:
         cache: 'npm'
         cache-dependency-path: './${{ inputs.docs_builder_folder }}/package-lock.json'
 
-    # Move the docs and config to the doc builder
-    - run: |
-        mkdir -p docs/static/
-        cp -r -f docs/static/. ${{ inputs.docs_builder_folder }}/static/
-        rm -r -f ${{ inputs.docs_builder_folder }}/docs
-        mv docs ${{ inputs.docs_builder_folder }}/docs
-      if: ${{ env.DOCS_FOLDER_EXISTS }}
-      shell: bash
-
     # Configure the GitHub account for pushing as a generic user
     - run: |
         git config --global user.name github-actions
