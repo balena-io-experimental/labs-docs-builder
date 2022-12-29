@@ -11,15 +11,17 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 
 // Configure required variables
 const baseUrl = process.env.REPO_NAME ? `/${process.env.REPO_NAME}/` : "/";
-const branch = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH;
+const defaultBranch = process.env.DEFAULT_BRANCH;
+
 const docsPath =
-  process.env.DOCS_PATH || process.env.GITHUB_WORKSPACE
+  process.env.DOCS_PATH ||
+  (process.env.GITHUB_WORKSPACE
     ? `${process.env.GITHUB_WORKSPACE}/docs`
-    : "docs";
+    : "docs");
 const githubRepoOwner = process.env.GITHUB_REPOSITORY_OWNER;
 const repoName = process.env.REPO_NAME;
 const ymlConfig = yaml.load(
-  fs.readFileSync(docsPath + "/docusaurus-config.yml", "utf8")
+  fs.readFileSync(`${docsPath}/docusaurus-config.yml`, "utf8")
 );
 
 // Check if balena.yml exists, and read the yml file
@@ -31,7 +33,7 @@ try {
 }
 
 // Configure URLs
-const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${branch}`;
+const editUrl = `https://github.com/${githubRepoOwner}/${repoName}/edit/${defaultBranch}/`;
 const siteUrl = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io`;
 
 // If theme files are missing, replace with defaults
@@ -116,7 +118,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: editUrl,
           breadcrumbs: false,
-          path: docsPath,
+          path: process.env.GITHUB_WORKSPACE ? "docs" : docsPath,
         },
         blog: false,
         theme: {
